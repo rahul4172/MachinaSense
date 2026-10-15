@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Activity } from 'lucide-react';
-import { api } from '../services/api';
+import { api, API_BASE } from '../services/api';
 
 interface NavbarProps {
   activeTab: string;
@@ -9,12 +9,35 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, alertCount }) => {
-  const [modelOnline, setModelOnline] = useState<boolean>(true);
+  const [modelOnline, setModelOnline] = useState<boolean | null>(null);
+  const [pingMs, setPingMs] = useState<number | null>(null);
 
   useEffect(() => {
-    api.getHealth()
-      .then(h => setModelOnline(h.model_loaded))
-      .catch(() => setModelOnline(false));
+    let isMounted = true;
+
+    const checkHealth = async () => {
+      const t0 = performance.now();
+      try {
+        const h = await api.getHealth();
+        if (isMounted) {
+          const rtt = Math.round(performance.now() - t0);
+          setModelOnline(Boolean(h.model_loaded));
+          setPingMs(rtt);
+        }
+      } catch {
+        if (isMounted) {
+          setModelOnline(false);
+          setPingMs(null);
+        }
+      }
+    };
+
+    checkHealth();
+    const interval = setInterval(checkHealth, 10000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const navItems = [
@@ -41,12 +64,50 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, alertCo
         <div className="flex items-center space-x-4">
           <span className="text-zinc-400">ENGINE:</span>
           <span className="flex items-center space-x-1.5">
-            <span className={`inline-block h-2 w-2 ${modelOnline ? 'bg-[#FF3000]' : 'bg-zinc-500'}`}></span>
-            <span className="font-bold text-white uppercase">{modelOnline ? 'ONLINE (ACTIVE)' : 'OFFLINE'}</span>
+            <span
+              className={`inline-block h-2 w-2 ${
+                modelOnline === true
+                  ? 'bg-[#FF3000]'
+                  : modelOnline === false
+                  ? 'bg-zinc-500'
+                  : 'bg-amber-400 animate-pulse'
+              }`}
+            ></span>
+            <span className="font-bold text-white uppercase">
+              {modelOnline === true ? 'ONLINE (ACTIVE)' : modelOnline === false ? 'OFFLINE' : 'CONNECTING...'}
+            </span>
           </span>
-          <span className="hidden md:inline text-zinc-400">LATENCY: 0.052 MS</span>
+          {modelOnline === true ? (
+            <span className="hidden md:inline text-zinc-400">
+              PING: {pingMs}MS // INFERENCE: 0.052 MS
+            </span>
+          ) : (
+            <span className="hidden md:inline text-zinc-500 font-mono">
+              LATENCY: -- (OFFLINE)
+            </span>
+          )}
         </div>
       </div>
+
+      {/* Offline Troubleshooting Helper Banner */}
+      {modelOnline === false && (
+        <div className="bg-[#FF3000] text-white text-[11px] font-mono font-bold px-4 sm:px-8 py-1.5 flex flex-wrap items-center justify-between border-b-2 border-black gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="bg-black text-white px-1.5 py-0.5 uppercase tracking-wider text-[10px]">
+              BACKEND OFFLINE
+            </span>
+            <span>
+              Target: <code className="bg-black/25 px-1 py-0.5">{API_BASE}</code> — If Render free tier is waking up, please wait ~45s. On Vercel, set <code className="bg-black/25 px-1 py-0.5">VITE_API_BASE_URL</code> to your Render backend URL.
+            </span>
+          </div>
+          <button
+            onClick={() => window.location.reload()}
+            className="underline uppercase tracking-wider hover:text-black flex-shrink-0"
+          >
+            REFRESH STATUS
+          </button>
+        </div>
+      )}
 
       {/* Main Header / Brand */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4">

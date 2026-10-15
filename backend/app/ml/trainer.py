@@ -6,9 +6,11 @@ Trains genuine ML models for:
 3. Remaining Useful Life (RUL) Degradation Estimation (Random Forest)
 """
 
+from __future__ import annotations
 import os
 import json
 import joblib
+from typing import Dict, Any, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 from datetime import datetime

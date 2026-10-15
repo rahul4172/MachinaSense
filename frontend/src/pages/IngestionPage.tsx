@@ -8,7 +8,7 @@ import {
   Check,
   ShieldCheck
 } from 'lucide-react';
-import { api } from '../services/api';
+import { api, API_BASE } from '../services/api';
 
 export const IngestionPage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -50,7 +50,7 @@ export const IngestionPage: React.FC = () => {
     setUploading(true);
     setErrorMsg(null);
     try {
-      const res = await fetch(`/api/evaluations/run`, {
+      const res = await fetch(`${API_BASE}/evaluations/run`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dataset_path: `data/${sampleName}`, sample_limit: 100 })

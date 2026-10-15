@@ -31,10 +31,10 @@
 }
 
 .swiss-diagonal {
-  background: repeating-linear-gradient(
+  background-image: repeating-linear-gradient(
     45deg,
-    rgba(0, 0, 0, 0.03),
-    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.04),
+    rgba(0, 0, 0, 0.04) 2px,
     transparent 2px,
     transparent 10px
   );

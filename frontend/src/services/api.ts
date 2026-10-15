@@ -13,7 +13,7 @@ let rawBase = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '');
 if (rawBase && !rawBase.endsWith('/api') && rawBase.startsWith('http')) {
   rawBase = `${rawBase}/api`;
 }
-const API_BASE = rawBase;
+export const API_BASE = rawBase;
 
 export const api = {
   // Health & Model

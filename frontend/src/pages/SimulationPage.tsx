@@ -18,7 +18,7 @@ import {
   CartesianGrid,
   Legend
 } from 'recharts';
-import { api } from '../services/api';
+import { api, API_BASE } from '../services/api';
 import { SimulationEvent } from '../types';
 
 export const SimulationPage: React.FC = () => {
@@ -55,7 +55,7 @@ export const SimulationPage: React.FC = () => {
       eventSourceRef.current.close();
     }
 
-    const es = new EventSource('/api/simulation/stream');
+    const es = new EventSource(`${API_BASE}/simulation/stream`);
     eventSourceRef.current = es;
 
     es.onmessage = (e) => {

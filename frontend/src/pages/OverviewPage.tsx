@@ -78,7 +78,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigate }) => {
             <div className="flex items-center space-x-2 font-mono text-xs uppercase tracking-widest text-[#FF3000] font-bold mb-2">
               <span>01. SYSTEM STATUS</span>
               <span>//</span>
-              <span className="text-black">GESAMTUBERSICHT</span>
+              <span className="text-black">SYSTEM OVERVIEW</span>
             </div>
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-black leading-none">
               PLANT FLEET MONITOR
@@ -241,7 +241,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigate }) => {
             ) : (
               <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-black p-8 text-center bg-[#F2F2F2]">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-black mb-2">
-                  KEINE AKTIVEN STREAM-DATEN IM SPEICHER
+                  NO ACTIVE TELEMETRY STREAM DATA IN BUFFER
                 </span>
                 <button
                   onClick={() => onNavigate('simulation')}

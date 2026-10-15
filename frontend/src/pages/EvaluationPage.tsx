@@ -56,7 +56,7 @@ export const EvaluationPage: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <div className="font-mono text-xs uppercase tracking-widest text-[#FF3000] font-bold mb-1">
-              07. HELD-OUT BENCHMARK // MODELLVALIDIERUNG
+              07. HELD-OUT BENCHMARK // MODEL VALIDATION
             </div>
             <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-black leading-none">
               BENCHMARK EVALUATION & ROBUSTNESS

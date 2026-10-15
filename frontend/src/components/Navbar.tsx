@@ -65,14 +65,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, alertCo
                 </span>
               </div>
               <p className="text-[11px] font-bold text-black uppercase tracking-widest mt-1">
-                SYSTEME FUR INDUSTRIELLE FEHLERERKENNUNG UND VORAUSSCHAUENDE WARTUNG
+                INTELLIGENT INDUSTRIAL FAULT DETECTION & PREDICTIVE MAINTENANCE PLATFORM
               </p>
             </div>
           </div>
 
           <div className="text-right hidden sm:block">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">STANDORT DER ANLAGE</div>
-            <div className="text-xs font-black uppercase text-black font-mono">WERK 01 / HALLE A-04</div>
+            <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">FACILITY LOCATION</div>
+            <div className="text-xs font-black uppercase text-black font-mono">PLANT 01 / BAY A-04</div>
           </div>
         </div>
       </div>

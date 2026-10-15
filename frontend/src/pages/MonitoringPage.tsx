@@ -89,7 +89,7 @@ export const MonitoringPage: React.FC<MonitoringPageProps> = ({ initialMachineId
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <div className="font-mono text-xs uppercase tracking-widest text-[#FF3000] font-bold mb-1">
-              02. ASSET INSPECTOR // MASCHINENFLEET
+              02. ASSET INSPECTOR // EQUIPMENT FLEET
             </div>
             <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter text-black leading-none">
               FLEET TELEMETRY & DIAGNOSTICS
